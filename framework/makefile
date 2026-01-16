@@ -1,4 +1,4 @@
-SRC				=
+SRC				=	load_test.c create_ctx.c free_ctx.c get_last.c status.c
 SRCDIR			:=	src/
 BIN				=	$(addprefix $(BINDIR),$(SRC:.c=.o))
 BINDIR			:=	bin/
@@ -29,9 +29,9 @@ $(NAME)			:	$(BIN)
 	$(AR) $@ $?
 
 $(DEPDIR)%.d	:	%.c | $(DEPDIR)
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(DEPFLAGS) $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(DEPFLAG) $<
 $(BINDIR)%.o	:	%.c | $(BINDIR)
-	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
 %/				:
 	mkdir -p $@
