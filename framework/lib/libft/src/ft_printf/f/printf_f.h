@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   create_ctx.c                                            :+:    :+:       */
+/*   printf_f.h                                              :+:    :+:       */
 /*                                                          +:+               */
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
-/*   Created: 2026/01/16 20:18:34 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/16 20:20:25 by mde-beer            ########   odam.nl   */
+/*   Created: 2025/09/20 17:22:05 by mde-beer            #+#    #+#           */
+/*   Updated: 2025/09/20 17:22:43 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -25,16 +25,12 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <framework.h>
-#include <stdlib.h>
+#ifndef PRINTF_F_H
+# define PRINTF_F_H
 
-t_unit_ctx	*create_ctx(char *function_name)
-{
-	t_unit_ctx *const	head = ft_calloc(sizeof(t_unit_ctx), 1);
+# include <stdarg.h>
+# include "../printf_datatypes.h"
 
-	if (!head)
-		return (NULL);
-	head->test.name = function_name;
-	return (head);
-}
+t_uchar	*get_float_dec_lo(t_printf_arg *argument, va_list *args);
+
+#endif // PRINTF_F_H

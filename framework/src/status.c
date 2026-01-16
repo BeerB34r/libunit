@@ -28,22 +28,24 @@
 #include <framework.h>
 
 #define SUPPORTED_STATUS_COUNT 9
-const static struct {
-	t_status status;
-	char *str;
+
+const static struct s_status
+{
+	t_status	status;
+	char		*str;
 }	g_status[SUPPORTED_STATUS_COUNT] = {
-	{ ERR, C_ERR },
-	{ OK, C_OK },
-	{ KO, C_KO },
-	{ SEGV, C_SEGV },
-	{ BUS, C_BUS },
-	{ ABRT, C_ABRT },
-	{ FPE, C_FPE },
-	{ PIPE, C_PIPE },
-	{ ILL, C_ILL }
+	{ERR, C_ERR},
+	{OK, C_OK},
+	{KO, C_KO},
+	{SEGV, C_SEGV},
+	{BUS, C_BUS},
+	{ABRT, C_ABRT},
+	{FPE, C_FPE},
+	{PIPE, C_PIPE},
+	{ILL, C_ILL}
 };
 
-char *status(t_status status)
+char	*status(t_status status)
 {
 	unsigned int	i;
 

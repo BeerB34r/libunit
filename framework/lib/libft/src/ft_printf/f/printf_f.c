@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   create_ctx.c                                            :+:    :+:       */
+/*   printf_f.c                                              :+:    :+:       */
 /*                                                          +:+               */
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
-/*   Created: 2026/01/16 20:18:34 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/16 20:20:25 by mde-beer            ########   odam.nl   */
+/*   Created: 2025/09/20 17:27:52 by mde-beer            #+#    #+#           */
+/*   Updated: 2025/09/20 19:02:22 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -25,16 +25,75 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <framework.h>
-#include <stdlib.h>
+#include "../libft/libft.h"
+#include "printf_f.h"
+#include <math.h>
 
-t_unit_ctx	*create_ctx(char *function_name)
+static size_t	float_width(double f)
 {
-	t_unit_ctx *const	head = ft_calloc(sizeof(t_unit_ctx), 1);
+	size_t	most_significant_digit;
 
-	if (!head)
+	modf(f, &f);
+	most_significant_digit = 1;
+	while (fabs(f) >= 10.0)
+	{
+		most_significant_digit++;
+		f = trunc(f / 10);
+	}
+	return (most_significant_digit + 6 + 1);
+}
+
+static void	populate_float_array(t_uchar *a, double f)
+{
+	const int	len = float_width(f);
+	double		fractional;
+	int			i;
+
+	modf(nearbyint(modf(f, &f) * pow(10, 6)), &fractional);
+	i = 1;
+	while (i < 7)
+	{
+		a[len - i++] = fmod(fractional, 10) + '0';
+		fractional = trunc(fractional / 10);
+	}
+	a[len - i++] = '.';
+	while (len - i >= 0)
+	{
+		a[len - i++] = fmod(f, 10) + '0';
+		f = trunc(f / 10);
+	}
+}
+
+static t_uchar	*pf_ftoa(double f)
+{
+	t_uchar	*a;
+	size_t	len;
+
+	len = 0;
+	if (signbit(f))
+		len = 1;
+	len += float_width(f);
+	a = ft_calloc(len + 1, sizeof(t_uchar));
+	if (!a)
 		return (NULL);
-	head->test.name = function_name;
-	return (head);
+	if (signbit(f))
+		a[0] = '-';
+	populate_float_array(&a[!!signbit(f)], fabs(f));
+	return (a);
+}
+
+t_uchar	*get_float_dec_lo(t_printf_arg *argument, va_list *args)
+{
+	const double	arg = va_arg(*args, double);
+
+	(void)argument;
+	if (arg != arg && signbit(arg))
+		return ((t_uchar *)ft_strdup("-nan"));
+	if (arg != arg)
+		return ((t_uchar *)ft_strdup("nan"));
+	if (isinf(arg) && signbit(arg))
+		return ((t_uchar *)ft_strdup("-inf"));
+	if (isinf(arg))
+		return ((t_uchar *)ft_strdup("inf"));
+	return (pf_ftoa(arg));
 }
