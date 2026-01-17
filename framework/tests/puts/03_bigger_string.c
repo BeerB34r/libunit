@@ -26,6 +26,7 @@
 /* ************************************************************************** */
 
 #include <stddef.h> // symbol size_t
+#include <unistd.h>
 #include <framework.h>
 
 static char *const	g_long_string = "this is a very long string with lots of \

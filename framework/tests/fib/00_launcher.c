@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   printing_test.c                                         :+:    :+:       */
+/*   00_launcher.c                                           :+:    :+:       */
 /*                                                          +:+               */
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
-/*   Created: 2026/01/17 13:37:25 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/17 14:05:04 by mde-beer            ########   odam.nl   */
+/*   Created: 2026/01/17 17:20:46 by mde-beer            #+#    #+#           */
+/*   Updated: 2026/01/17 17:25:43 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -25,133 +25,33 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <framework.h>
-#include <sys/wait.h>
-#include <sys/time.h>
-#include <unistd.h>
 
-static
-int	init(int stdoutpipe[2], int stderrpipe[2])
+// tests:
+int	fib_basic_test(void);
+int	fib_negative_test(void);
+int	fib_bignum_test(void);
+
+// launcher:
+int	fib_launcher(void)
 {
-	if (pipe(stdoutpipe))
-		return (1);
-	if (pipe(stderrpipe))
-	{
-		close(stdoutpipe[0]);
-		close(stdoutpipe[1]);
-		return (1);
-	}
-	return (0);
-}
+	t_unit_ctx	*tests;
 
-static
-int	compare_file_to_str(const char *str, const int fd)
-{
-	char	*file_contents;
-	char	*next;
-	char	*tmp;
-	int		retval;
-
-	file_contents = get_next_line(fd);
-	if (!file_contents)
-		file_contents = ft_strdup("");
-	next = get_next_line(fd);
-	while (next)
-	{
-		tmp = ft_strjoin(file_contents, next);
-		free(file_contents);
-		free(next);
-		if (!tmp)
-			return (1);
-		file_contents = tmp;
-		next = get_next_line(fd);
-	}
-	retval = ft_strncmp(str, file_contents, ft_strlen(str));
-	free(file_contents);
-	return (retval);
-}
-
-static
-void	wait_for_child(pid_t proc, t_test *test)
-{
-	int	stat;
-
-	while (wait(&stat) != proc)
-		;
-	if (WIFEXITED(stat))
-	{
-		test->status = OK;
-		if (WEXITSTATUS(stat))
-			test->status = KO;
-	}
-	else if (WIFSIGNALED(stat))
-		test->status = map_signal_status(WTERMSIG(stat));
-	else
-		test->status = ERR;
-}
-
-static
-void
-	run_printing_test(
-t_test *test,
-int stdoutpipe[2],
-int stderrpipe[2],
-struct itimerval *timer
-)
-{
-	const pid_t	proc = fork();
-	int			retval;
-
-	if (proc == (pid_t)-1)
-	{
-		close(stdoutpipe[1]);
-		close(stderrpipe[1]);
-		test->status = ERR;
-		return ;
-	}
-	if (proc == 0)
-	{
-		setitimer(ITIMER_REAL, timer, NULL);
-		close(stdoutpipe[0]);
-		close(stderrpipe[0]);
-		dup2(stdoutpipe[1], STDOUT_FILENO);
-		dup2(stderrpipe[1], STDERR_FILENO);
-		retval = test->func();
-		timer->it_value = (struct timeval){0};
-		setitimer(ITIMER_REAL, timer, NULL);
-		exit(retval);
-	}
-	close(stdoutpipe[1]);
-	close(stderrpipe[1]);
-	wait_for_child(proc, test);
-}
-
-int	printing_test(char *expected_stdout, char *expected_stderr, t_testfunc func)
-{
-	int					stdoutpipe[2];
-	int					stderrpipe[2];
-	int					retval;
-	struct itimerval	timer;
-	t_test				test;
-
-	if (init(stdoutpipe, stderrpipe))
-		return (42);
-	test.func = func;
-	test.status = UNKNOWN;
-	if (getitimer(ITIMER_REAL, &timer))
-		return (42);
-	run_printing_test(&test, stdoutpipe, stderrpipe, &timer);
-	if (test.status != OK)
-	{
-		close(stdoutpipe[0]);
-		close(stderrpipe[0]);
-		return (map_status_retval(test.status));
-	}
-	retval = !!compare_file_to_str(expected_stdout, stdoutpipe[0]);
-	if (!retval)
-		retval = !!compare_file_to_str(expected_stderr, stderrpipe[0]);
-	close(stdoutpipe[0]);
-	close(stderrpipe[0]);
-	return (retval);
+	tests = create_ctx("fib()");
+	load_test(&tests, (t_test){
+		.name = "Basic",
+		.func = &fib_basic_test,
+		.timeout_seconds = 1
+	});
+	load_test(&tests, (t_test){
+		.name = "Negative",
+		.func = &fib_negative_test,
+		.timeout_seconds = 1
+	});
+	load_test(&tests, (t_test){
+		.name = "Big number",
+		.func = &fib_bignum_test,
+		.timeout_seconds = 1
+	});
+	return (launch_tests(&tests));
 }

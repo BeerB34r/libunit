@@ -27,7 +27,7 @@
 
 #include <framework.h>
 
-#define SUPPORTED_STATUS_COUNT 9
+#define SUPPORTED_STATUS_COUNT 10
 
 const static struct s_status
 {
@@ -42,7 +42,8 @@ const static struct s_status
 	{ABRT, C_ABRT},
 	{FPE, C_FPE},
 	{PIPE, C_PIPE},
-	{ILL, C_ILL}
+	{ILL, C_ILL},
+	{TIME, C_TIME}
 };
 
 char	*status(t_status status)

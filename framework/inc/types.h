@@ -42,7 +42,8 @@ typedef enum e_status
 	ABRT,
 	FPE,
 	PIPE,
-	ILL
+	ILL,
+	TIME
 }	t_status;
 
 typedef int					(*t_testfunc)(void);
@@ -54,7 +55,7 @@ struct s_test
 	t_testfunc	func;
 	bool		silent;
 	t_status	status;
-	size_t		timeout;
+	size_t		timeout_seconds;
 };
 struct s_test_list
 {
