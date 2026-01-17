@@ -53,7 +53,7 @@ void	print_final_result(int passing_tests, int total_tests)
 {
 	const int	percent = passing_tests * 100 / total_tests;
 
-	ft_printf("%i/%i [%.3i%%] tests passed",
+	ft_printf("%i/%i [%3i%%] tests passed\n",
 		passing_tests, total_tests, percent);
 }
 
@@ -73,14 +73,15 @@ int	launch_tests(t_unit_ctx **head)
 	passing_tests = 0;
 	while (current)
 	{
-		run_test(&current->test);
+		run_test(&current->test, *head);
 		if (current->test.status == OK)
 			passing_tests++;
 		if (!current->test.silent)
 			print_test_result(function_name, current->test);
+		current = current->next;
 	}
 	print_final_result(passing_tests, total_tests);
 	free_ctx(*head);
 	*head = NULL;
-	return (total_tests == passing_tests);
+	return (!(total_tests == passing_tests));
 }
