@@ -1,6 +1,7 @@
-FT_PRINTF_TESTS = $(addprefix ft_printf/, 00_launcher.c 01_basic.c 02_cflag.c)
-TESTS			= $(FT_PRINTF_TESTS)
-FUNCTIONS		= $(addprefix functions/ft_printf/, ft_printf.c ft_printf_utils.c)
+PRINTF_TESTS = $(addprefix printf/, 00_launcher.c 01_basic.c 02_cflag.c 03_sflag.c  \
+                  04_dflag.c 05_iflag.c 06_uflag.c)
+TESTS			= $(PRINTF_TESTS)
+FUNCTIONS		= $(addprefix functions/printf/, printf.c printf_utils.c)
 MAIN			= main.c
 LIBS			= ../libunit.a ../lib/libft/libft.a
 LDFLAGS			= $(LIBS) -lm

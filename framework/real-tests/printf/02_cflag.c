@@ -3,13 +3,13 @@
 #include <libft.h>
 
 // function to be tested:
-int	ft_printf(char const *str, ...);
+int	printf(char const *str, ...);
 
 // helper tests
 static
 int	check_return_one(void)
 {
-	if (ft_printf("%c", 'x') == 1)
+	if (printf("%c", 'x') == 1)
 		return (0);
 	return (1);
 }
@@ -17,7 +17,7 @@ int	check_return_one(void)
 static
 int	check_return_two(void)
 {
-	if (ft_printf(" %c", 'x') == 2)
+	if (printf(" %c", 'x') == 2)
 		return (0);
 	return (1);
 }
@@ -25,7 +25,7 @@ int	check_return_two(void)
 static
 int	check_return_three(void)
 {
-	if (ft_printf("%c%c%c", 'a', ' ', 'b') == 3)
+	if (printf("%c%c%c", 'a', ' ', 'b') == 3)
 		return (0);
 	return (1);
 }
@@ -33,7 +33,7 @@ int	check_return_three(void)
 static
 int	check_return_four(void)
 {
-	if (ft_printf("%cc%cc%c", 'a', ' ', 'b') == 5)
+	if (printf("%cc%cc%c", 'a', ' ', 'b') == 5)
 		return (0);
 	return (1);
 }
@@ -41,13 +41,13 @@ int	check_return_four(void)
 static
 int	check_return_five(void)
 {
-	if (ft_printf("%cs%cs%c", 'a', ' ', 'b') == 5)
+	if (printf("%cs%cs%c", 'a', ' ', 'b') == 5)
 		return (0);
 	return (1);
 }
 
 // test function:
-int	ft_printf_cflag_test(void)
+int	printf_cflag_test(void)
 {
 	int	retval;
 

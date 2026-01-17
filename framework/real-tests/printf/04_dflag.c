@@ -3,13 +3,13 @@
 #include <libft.h>
 
 // function to be tested:
-int	ft_printf(char const *str, ...);
+int	printf(char const *str, ...);
 
 // helper tests
 static
 int	check_return_one(void)
 {
-	if (ft_printf("%c", 'x') == 1)
+	if (printf("%d", 0) == 1)
 		return (0);
 	return (1);
 }
@@ -17,7 +17,7 @@ int	check_return_one(void)
 static
 int	check_return_two(void)
 {
-	if (ft_printf(" %c", 'x') == 2)
+	if (printf("%d", -10) == 3)
 		return (0);
 	return (1);
 }
@@ -25,7 +25,7 @@ int	check_return_two(void)
 static
 int	check_return_three(void)
 {
-	if (ft_printf("%c%c%c", 'a', ' ', 'b') == 3)
+	if (printf("%d", -6000023) == 8)
 		return (0);
 	return (1);
 }
@@ -33,7 +33,7 @@ int	check_return_three(void)
 static
 int	check_return_four(void)
 {
-	if (ft_printf("%cc%cc%c", 'a', ' ', 'b') == 5)
+	if (printf("%d", 2147483647) == 10)
 		return (0);
 	return (1);
 }
@@ -41,25 +41,26 @@ int	check_return_four(void)
 static
 int	check_return_five(void)
 {
-	if (ft_printf("%cs%cs%c", 'a', ' ', 'b') == 5)
+    int n = -2147483648;
+	if (printf("%ds", n) == 12)
 		return (0);
 	return (1);
 }
 
 // test function:
-int	ft_printf_sflag_test(void)
+int	printf_dflag_test(void)
 {
 	int	retval;
 
-	retval = printing_test("x", "", &check_return_one);
+	retval = printing_test("0", "", &check_return_one);
 	if (!retval)
-		retval = printing_test(" x", "", &check_return_two);
+		retval = printing_test("-10", "", &check_return_two);
 	if (!retval)
-		retval = printing_test("a b", "", &check_return_three);
+		retval = printing_test("-6000023", "", &check_return_three);
 	if (!retval)
-		retval = printing_test("ac cb", "", &check_return_four);
+		retval = printing_test("2147483647", "", &check_return_four);
 	if (!retval)
-		retval = printing_test("as sb", "", &check_return_five);
+		retval = printing_test("-2147483648s", "", &check_return_five);
 	if (retval)
 		return (retval);
 	return (0);

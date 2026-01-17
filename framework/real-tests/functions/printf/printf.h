@@ -1,10 +1,10 @@
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef PRINTF_H
+# define PRINTF_H
 
 # include <stdarg.h>
 # include <unistd.h>
 
-int	ft_printf(char const *str, ...);
+int	printf(char const *str, ...);
 int	ft_putchar(char c);
 int	ft_putnbr(long nb);
 int	ft_putnbr_hexa(unsigned long nbr, char up);

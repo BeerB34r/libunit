@@ -6,7 +6,7 @@
 /*   By: aslobodi <aslobodi@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 12:54:29 by mde-beer          #+#    #+#             */
-/*   Updated: 2026/01/17 18:22:52 by aslobodi         ###   ########.fr       */
+/*   Updated: 2026/01/17 21:36:37 by aslobodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 #include <framework.h>
 
-int	ft_printf_launcher(void);
+int	printf_launcher(void);
 
 // TODO add support for cmdline arguments
 int	main(int ac, char **av)
@@ -38,6 +38,6 @@ int	main(int ac, char **av)
 	(void)av;
 	tests = create_ctx("All the tests");
 	load_test(&tests,
-		(t_test){.name = "ft_printf tests", .func = &ft_printf_launcher});
+		(t_test){.name = "printf tests", .func = &printf_launcher});
 	return (launch_tests(&tests));
 }

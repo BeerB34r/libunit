@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_launcher.c                                      :+:      :+:    :+:   */
+/*   01_basic.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aslobodi <aslobodi@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/17 14:10:30 by mde-beer          #+#    #+#             */
-/*   Updated: 2026/01/17 19:22:47 by aslobodi         ###   ########.fr       */
+/*   Created: 2026/01/17 12:43:20 by mde-beer          #+#    #+#             */
+/*   Updated: 2026/01/17 21:39:00 by aslobodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,40 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
+#include <stddef.h> // symbol size_t
 #include <framework.h>
+#include <libft.h>
 
-// tests:
-int	ft_printf_basic_test(void);
-int	ft_printf_cflag_test(void);
+// function to be tested:
+int	printf(char const *str, ...);
 
-// launcher:
-int	ft_printf_launcher(void)
+// helper test
+
+static
+int	check_return_hello(void)
 {
-	t_unit_ctx	*tests;
+	if (printf("Hello, World!\n") == 14)
+		return (0);
+	return (1);
+}
 
-	tests = create_ctx("ft_printf()");
-	load_test(&tests, (t_test){.name = "Basic", .func = &ft_printf_basic_test});
-	load_test(&tests, (t_test){.name = "%c", .func = &ft_printf_cflag_test});
-	return (launch_tests(&tests));
+static
+int	check_return_nothing(void)
+{
+	if (printf("") == 0)
+		return (0);
+	return (1);
+}
+
+// test function:
+int	printf_basic_test(void)
+{
+	int	retval;
+
+	retval = printing_test("Hello, World!\n", "", &check_return_hello);
+	if (!retval)
+		retval = printing_test("", "", &check_return_nothing);
+	if (retval)
+		return (retval);
+	return (0);
 }
