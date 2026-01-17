@@ -31,7 +31,7 @@
 void	abrt_logger(t_test test, const int fd)
 {
 	ft_dprintf(fd,
-		C_ABRT
+		"[ABRT]"
 		"%s failed due to recieving the signal SIGABRT.\n",
 		test.name
 		);
@@ -40,7 +40,7 @@ void	abrt_logger(t_test test, const int fd)
 void	pipe_logger(t_test test, const int fd)
 {
 	ft_dprintf(fd,
-		C_PIPE
+		"[PIPE]"
 		"%s failed due to recieving the signal SIGPIPE.\n",
 		test.name
 		);

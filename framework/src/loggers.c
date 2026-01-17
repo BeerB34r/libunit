@@ -31,8 +31,8 @@
 void	time_logger(t_test test, const int fd)
 {
 	ft_dprintf(fd,
-		C_TIME
-		"%s could not finish executing in %zu seconds.\n",
+		"[TIME]"
+		"%s failed because it could not finish executing in %zu seconds.\n",
 		test.name,
 		test.timeout_seconds
 		);
@@ -41,7 +41,7 @@ void	time_logger(t_test test, const int fd)
 void	ill_logger(t_test test, const int fd)
 {
 	ft_dprintf(fd,
-		C_ILL
+		"[ILL]"
 		"%s failed due to recieving the signal SIGILL.\n",
 		test.name
 		);
@@ -50,7 +50,7 @@ void	ill_logger(t_test test, const int fd)
 void	fpe_logger(t_test test, const int fd)
 {
 	ft_dprintf(fd,
-		C_FPE
+		"[FPE]"
 		"%s failed due to recieving the signal SIGFPE.\n",
 		test.name
 		);
@@ -59,7 +59,7 @@ void	fpe_logger(t_test test, const int fd)
 void	bus_logger(t_test test, const int fd)
 {
 	ft_dprintf(fd,
-		C_BUS
+		"[BUS]"
 		"%s failed due to recieving the signal SIGBUS.\n",
 		test.name
 		);
@@ -68,7 +68,7 @@ void	bus_logger(t_test test, const int fd)
 void	segv_logger(t_test test, const int fd)
 {
 	ft_dprintf(fd,
-		C_SEGV
+		"[SEGV]"
 		"%s failed due to recieving the signal SIGSEGV.\n",
 		test.name
 		);

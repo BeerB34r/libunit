@@ -70,7 +70,7 @@ void	ko_logger(t_test test, const int fd)
 		= ft_strnstr(test.name, "tests", ft_strlen(test.name));
 
 	ft_dprintf(fd,
-		C_KO
+		"[KO]"
 		"%s failed.",
 		test.name
 		);
@@ -78,7 +78,7 @@ void	ko_logger(t_test test, const int fd)
 	{
 		ft_dprintf(fd,
 			" look in %.*s.log for more detailed information.",
-			(int)(is_launcher - (test.name - 1)),
+			(int)(is_launcher - (test.name + 1)),
 			test.name
 			);
 	}
@@ -88,7 +88,7 @@ void	ko_logger(t_test test, const int fd)
 void	ok_logger(t_test test, const int fd)
 {
 	ft_dprintf(fd,
-		C_OK
+		"[OK]"
 		"%s passed.\n",
 		test.name
 		);
@@ -97,7 +97,7 @@ void	ok_logger(t_test test, const int fd)
 void	err_logger(t_test test, const int fd)
 {
 	ft_dprintf(fd,
-		C_ERR
+		"[ERR]"
 		"A standard library function failed unexpectedly while preparing %s. "
 		"It's exceedingly unlikely your code is at fault.\n",
 		test.name
