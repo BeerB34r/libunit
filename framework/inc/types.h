@@ -45,9 +45,9 @@ typedef enum e_status
 	ILL
 }	t_status;
 
-typedef int	(*t_testfunc)(void);
-typedef struct s_test t_test;
-typedef struct s_test_list t_unit_ctx;
+typedef int					(*t_testfunc)(void);
+typedef struct s_test		t_test;
+typedef struct s_test_list	t_unit_ctx;
 struct s_test
 {
 	char		*name;

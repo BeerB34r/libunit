@@ -25,10 +25,9 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
+#include <libft.h>
 #include <framework.h>
 #include <stdlib.h>
-
-void	*ft_calloc(size_t size, size_t nmemb);
 
 t_unit_ctx	*create_ctx(char *function_name)
 {

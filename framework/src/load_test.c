@@ -25,10 +25,9 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
+#include <libft.h>
 #include <framework.h>
 #include <stdlib.h>
-
-void	*ft_calloc(size_t size, size_t nmemb);
 
 void	load_test(t_unit_ctx **head, t_test test)
 {
