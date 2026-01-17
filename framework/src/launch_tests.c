@@ -83,5 +83,5 @@ int	launch_tests(t_unit_ctx **head)
 	print_final_result(passing_tests, total_tests);
 	free_ctx(*head);
 	*head = NULL;
-	return (!(total_tests == passing_tests));
+	return (!(total_tests == passing_tests) * -1);
 }

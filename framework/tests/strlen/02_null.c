@@ -31,7 +31,7 @@
 int	ft_strlen(char *str);
 
 // test function:
-int	null_test(void)
+int	ft_strlen_null_test(void)
 {
 	if (ft_strlen(NULL) != 0)
 		return (1);

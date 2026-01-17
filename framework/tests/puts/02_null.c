@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   00_launcher.c                                           :+:    :+:       */
+/*   02_null.c                                               :+:    :+:       */
 /*                                                          +:+               */
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
-/*   Created: 2026/01/17 12:37:33 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/17 13:00:52 by mde-beer            ########   odam.nl   */
+/*   Created: 2026/01/17 12:46:43 by mde-beer            #+#    #+#           */
+/*   Updated: 2026/01/17 14:22:49 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -25,22 +25,27 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
+#include <stddef.h> // symbol NULL, size_t
 #include <framework.h>
 
-// tests:
-int	ft_strlen_basic_test(void);
-int	ft_strlen_null_test(void);
-int	ft_strlen_bigger_str_test(void);
+// function to be tested:
+size_t	puts(const char *str);
 
-// launcher:
-int	strlen_launcher(void)
+static
+int	check_return_null(void)
 {
-	t_unit_ctx	*tests;
+	if (puts(NULL) == 6)
+		return (0);
+	return (1);
+}
 
-	tests = create_ctx("strlen()");
-	load_test(&tests, (t_test){.name = "Basic", .func = &ft_strlen_basic_test});
-	load_test(&tests, (t_test){.name = "NULL", .func = &ft_strlen_null_test});
-	load_test(&tests,
-		(t_test){.name = "Bigger str", .func = &ft_strlen_bigger_str_test});
-	return (launch_tests(&tests));
+// test function:
+int	puts_null_test(void)
+{
+	int	retval;
+
+	retval = printing_test("(null)", "", &check_return_null);
+	if (retval)
+		return (retval);
+	return (0);
 }

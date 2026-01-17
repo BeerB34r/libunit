@@ -5,8 +5,8 @@
 /*                                                          +:+               */
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
-/*   Created: 2026/01/17 12:37:33 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/17 13:00:52 by mde-beer            ########   odam.nl   */
+/*   Created: 2026/01/17 14:10:30 by mde-beer            #+#    #+#           */
+/*   Updated: 2026/01/17 14:14:52 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -28,19 +28,19 @@
 #include <framework.h>
 
 // tests:
-int	ft_strlen_basic_test(void);
-int	ft_strlen_null_test(void);
-int	ft_strlen_bigger_str_test(void);
+int	puts_basic_test(void);
+int	puts_null_test(void);
+int	puts_bigger_str_test(void);
 
 // launcher:
-int	strlen_launcher(void)
+int	puts_launcher(void)
 {
 	t_unit_ctx	*tests;
 
-	tests = create_ctx("strlen()");
-	load_test(&tests, (t_test){.name = "Basic", .func = &ft_strlen_basic_test});
-	load_test(&tests, (t_test){.name = "NULL", .func = &ft_strlen_null_test});
+	tests = create_ctx("puts()");
+	load_test(&tests, (t_test){.name = "Basic", .func = &puts_basic_test});
+	load_test(&tests, (t_test){.name = "Null", .func = &puts_null_test});
 	load_test(&tests,
-		(t_test){.name = "Bigger str", .func = &ft_strlen_bigger_str_test});
+		(t_test){.name = "Bigger string", .func = &puts_bigger_str_test});
 	return (launch_tests(&tests));
 }

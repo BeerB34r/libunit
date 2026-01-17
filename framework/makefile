@@ -1,4 +1,4 @@
-SRC					=	load_test.c create_ctx.c free_ctx.c get_last.c status.c run_test.c launch_tests.c
+SRC					=	load_test.c create_ctx.c free_ctx.c get_last.c status.c run_test.c launch_tests.c printing_test.c map_signals.c
 SRCDIR				:=	src/
 BIN					=	$(addprefix $(BINDIR),$(SRC:.c=.o))
 BINDIR				:=	bin/
@@ -7,7 +7,7 @@ DEPDIR				:=	dep/
 DEPFLAG				=	-MM -MF $@ -MT $@ -MT $(BINDIR)$(notdir $(basename $<)).o
 INC					=	-Iinc/ -Ilib/libft/include/
 VPATH				=	$(SRCDIR)
-CFLAGS				:=	-Wall -Wextra -Werror
+CFLAGS				:=	-Wall -Wextra -Werror -g
 CPPFLAGS			:=	$(INC)
 LDFLAGS				:=	-lm
 CC					:=	cc
