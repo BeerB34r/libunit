@@ -1,4 +1,4 @@
-SRC					=	load_test.c create_ctx.c free_ctx.c get_last.c status.c run_test.c launch_tests.c printing_test.c map_signals.c
+SRC					=	load_test.c create_ctx.c free_ctx.c get_last.c status.c run_test.c launch_tests.c printing_test.c map_signals.c log.c loggers.c loggers_continued.c
 SRCDIR				:=	src/
 BIN					=	$(addprefix $(BINDIR),$(SRC:.c=.o))
 BINDIR				:=	bin/
