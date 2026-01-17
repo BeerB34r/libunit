@@ -25,7 +25,7 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
-static char *const g_long_string = "this is a very long string with lots of \
+static char *const	g_long_string = "this is a very long string with lots of \
 text and newlines in it so that we can really test the limits of strlen() in\
 the hopes that it will eventually succeed and be deemed sufficient for whatever\
 purposes you find that you need strlen for. amogus";
@@ -34,7 +34,7 @@ purposes you find that you need strlen for. amogus";
 int	ft_strlen(char *str);
 
 // test function:
-int	bigger_str_test(void)
+int	ft_strlen_bigger_str_test(void)
 {
 	if (ft_strlen(g_long_string) != 245)
 		return (1);

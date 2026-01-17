@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   00_launcher.c                                           :+:    :+:       */
+/*   03_bigger_string.c                                      :+:    :+:       */
 /*                                                          +:+               */
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
-/*   Created: 2026/01/17 12:37:33 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/17 13:00:52 by mde-beer            ########   odam.nl   */
+/*   Created: 2026/01/17 12:48:08 by mde-beer            #+#    #+#           */
+/*   Updated: 2026/01/17 14:24:27 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -25,22 +25,32 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
+#include <stddef.h> // symbol size_t
 #include <framework.h>
 
-// tests:
-int	ft_strlen_basic_test(void);
-int	ft_strlen_null_test(void);
-int	ft_strlen_bigger_str_test(void);
+static char *const	g_long_string = "this is a very long string with lots of \
+text and newlines in it so that we can really test the limits of strlen() in\
+the hopes that it will eventually succeed and be deemed sufficient for whatever\
+purposes you find that you need strlen for. amogus";
 
-// launcher:
-int	strlen_launcher(void)
+// function to be tested:
+size_t	puts(const char *str);
+
+static
+int	check_return_long(void)
 {
-	t_unit_ctx	*tests;
+	if (puts(g_long_string) == 245)
+		return (0);
+	return (1);
+}
 
-	tests = create_ctx("strlen()");
-	load_test(&tests, (t_test){.name = "Basic", .func = &ft_strlen_basic_test});
-	load_test(&tests, (t_test){.name = "NULL", .func = &ft_strlen_null_test});
-	load_test(&tests,
-		(t_test){.name = "Bigger str", .func = &ft_strlen_bigger_str_test});
-	return (launch_tests(&tests));
+// test function:
+int	puts_bigger_str_test(void)
+{
+	int	retval;
+
+	retval = printing_test(g_long_string, "", &check_return_long);
+	if (retval)
+		return (retval);
+	return (0);
 }

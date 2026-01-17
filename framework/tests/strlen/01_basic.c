@@ -29,7 +29,7 @@
 int	ft_strlen(char *str);
 
 // test function:
-int	basic_test(void)
+int	ft_strlen_basic_test(void)
 {
 	if (ft_strlen("string with length 21") != 21)
 		return (1);
