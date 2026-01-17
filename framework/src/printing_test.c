@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                            ::::::::        */
-/*   printing_test.c                                         :+:    :+:       */
-/*                                                          +:+               */
-/*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
-/*                                                        +#+                 */
-/*   Created: 2026/01/17 13:37:25 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/17 14:05:04 by mde-beer            ########   odam.nl   */
+/*                                                        :::      ::::::::   */
+/*   printing_test.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aslobodi <aslobodi@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/17 13:37:25 by mde-beer          #+#    #+#             */
+/*   Updated: 2026/01/17 20:21:29 by aslobodi         ###   ########.fr       */
 /*                                                                            */
-/*   —————No norm compliance?——————                                           */
-/*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
+/* ************************************************************************** */
+
 /*   ⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇                                           */
 /*   ⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀                                           */
 /*   ⠀⠪⡪⡪⣪⢪⢺⢸⢢⢓⢆⢤⢀⠀⠀⠀⠀⠈⢊⢞⡾⣿⡯⣏⢮⠷⠁⠀⠀⠀                                           */
@@ -67,7 +67,7 @@ int	compare_file_to_str(const char *str, const int fd)
 		file_contents = tmp;
 		next = get_next_line(fd);
 	}
-	retval = ft_strncmp(str, file_contents, ft_strlen(str));
+	retval = ft_strncmp(str, file_contents, ft_strlen(str) + 1);
 	free(file_contents);
 	return (retval);
 }
