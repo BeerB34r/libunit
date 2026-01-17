@@ -32,7 +32,7 @@ void	time_logger(t_test test, const int fd)
 {
 	ft_dprintf(fd,
 		"[TIME]"
-		"%s failed because it could not finish executing in %zu seconds.\n",
+		"%s failed because it could not finish executing in %zu second(s).\n",
 		test.name,
 		test.timeout_seconds
 		);
