@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "printf.h"
 
 static int	ft_conversion(const char type, va_list vargs)
 {
@@ -19,7 +19,7 @@ static int	ft_conversion(const char type, va_list vargs)
 	return (-1);
 }
 
-int	ft_printf(char const *str, ...)
+int	printf(char const *str, ...)
 {
 	va_list	vargs;
 	int		len;

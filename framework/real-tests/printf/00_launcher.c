@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   01_basic.c                                         :+:      :+:    :+:   */
+/*   00_launcher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aslobodi <aslobodi@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/17 12:43:20 by mde-beer          #+#    #+#             */
-/*   Updated: 2026/01/17 19:52:33 by aslobodi         ###   ########.fr       */
+/*   Created: 2026/01/17 14:10:30 by mde-beer          #+#    #+#             */
+/*   Updated: 2026/01/17 21:35:36 by aslobodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,40 +25,33 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
-#include <stddef.h> // symbol size_t
 #include <framework.h>
-#include <libft.h>
 
-// function to be tested:
-int	ft_printf(char const *str, ...);
+// tests:
+int	printf_basic_test(void);
+int	printf_cflag_test(void);
+int	printf_sflag_test(void);
+int	printf_dflag_test(void);
+int	printf_iflag_test(void);
+int	printf_uflag_test(void);
+int	printf_pflag_test(void);
 
-// helper test
 
-static
-int	check_return_hello(void)
+
+
+// launcher:
+int	printf_launcher(void)
 {
-	if (ft_printf("Hello, World!\n") == 14)
-		return (0);
-	return (1);
-}
+	t_unit_ctx	*tests;
 
-static
-int	check_return_nothing(void)
-{
-	if (ft_printf("") == 0)
-		return (0);
-	return (1);
-}
+	tests = create_ctx("printf()");
+	load_test(&tests, (t_test){.name = "Basic", .func = &printf_basic_test});
+	load_test(&tests, (t_test){.name = "%c", .func = &printf_cflag_test});
+	load_test(&tests, (t_test){.name = "%s", .func = &printf_sflag_test});
+	load_test(&tests, (t_test){.name = "%d", .func = &printf_dflag_test});
+	load_test(&tests, (t_test){.name = "%i", .func = &printf_iflag_test});
+	load_test(&tests, (t_test){.name = "%u", .func = &printf_uflag_test});
+	// load_test(&tests, (t_test){.name = "%p", .func = &ft_printf_pflag_test});
 
-// test function:
-int	ft_printf_basic_test(void)
-{
-	int	retval;
-
-	retval = printing_test("Hello, World!\n", "", &check_return_hello);
-	if (!retval)
-		retval = printing_test("", "", &check_return_nothing);
-	if (retval)
-		return (retval);
-	return (0);
+	return (launch_tests(&tests));
 }
