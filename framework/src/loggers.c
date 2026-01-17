@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   launch_tests.c                                          :+:    :+:       */
+/*   loggers.c                                               :+:    :+:       */
 /*                                                          +:+               */
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
-/*   Created: 2026/01/16 21:27:47 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/16 21:42:46 by mde-beer            ########   odam.nl   */
+/*   Created: 2026/01/17 18:52:25 by mde-beer            #+#    #+#           */
+/*   Updated: 2026/01/17 19:20:21 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -25,64 +25,51 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
+#include <libft.h>
 #include <framework.h>
 
-static
-int	test_length(t_unit_ctx *head)
+void	time_logger(t_test test, const int fd)
 {
-	int	i;
-
-	i = 0;
-	while (head)
-	{
-		i++;
-		head = head->next;
-	}
-	return (i);
+	ft_dprintf(fd,
+		C_TIME
+		"%s could not finish executing in %zu seconds.\n",
+		test.name,
+		test.timeout_seconds
+		);
 }
 
-static
-void	output_test_result(char *function_name, t_test test)
+void	ill_logger(t_test test, const int fd)
 {
-	log_test(function_name, test);
-	ft_printf("%s:%s:%s\n", function_name, test.name, status(test.status));
+	ft_dprintf(fd,
+		C_ILL
+		"%s failed due to recieving the signal SIGILL.\n",
+		test.name
+		);
 }
 
-static
-void	print_final_result(int passing_tests, int total_tests)
+void	fpe_logger(t_test test, const int fd)
 {
-	const int	percent = passing_tests * 100 / total_tests;
-
-	ft_printf("%i/%i [%3i%%] tests passed\n",
-		passing_tests, total_tests, percent);
+	ft_dprintf(fd,
+		C_FPE
+		"%s failed due to recieving the signal SIGFPE.\n",
+		test.name
+		);
 }
 
-int	launch_tests(t_unit_ctx **head)
+void	bus_logger(t_test test, const int fd)
 {
-	t_unit_ctx	*current;
-	char		*function_name;
-	int			total_tests;
-	int			passing_tests;
+	ft_dprintf(fd,
+		C_BUS
+		"%s failed due to recieving the signal SIGBUS.\n",
+		test.name
+		);
+}
 
-	current = *head;
-	if (!current)
-		return (1);
-	function_name = current->test.name;
-	current = current->next;
-	total_tests = test_length(current);
-	passing_tests = 0;
-	while (current)
-	{
-		run_test(&current->test, *head);
-		if (current->test.status == OK)
-			passing_tests++;
-		if (!current->test.silent)
-			output_test_result(function_name, current->test);
-		current = current->next;
-	}
-	print_final_result(passing_tests, total_tests);
-	free_ctx(*head);
-	*head = NULL;
-	return (!(total_tests == passing_tests) * -1);
+void	segv_logger(t_test test, const int fd)
+{
+	ft_dprintf(fd,
+		C_SEGV
+		"%s failed due to recieving the signal SIGSEGV.\n",
+		test.name
+		);
 }

@@ -38,7 +38,7 @@ int	main(int ac, char **av)
 
 	(void)ac;
 	(void)av;
-	tests = create_ctx("All the tests");
+	tests = create_ctx("Tests");
 	load_test(&tests,
 		(t_test){.name = "strlen tests", .func = &strlen_launcher});
 	load_test(&tests,

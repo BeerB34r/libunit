@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   launch_tests.c                                          :+:    :+:       */
+/*   log.c                                                   :+:    :+:       */
 /*                                                          +:+               */
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
-/*   Created: 2026/01/16 21:27:47 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/16 21:42:46 by mde-beer            ########   odam.nl   */
+/*   Created: 2026/01/17 18:12:25 by mde-beer            #+#    #+#           */
+/*   Updated: 2026/01/17 19:19:51 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -25,64 +25,121 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
+#include <errno.h>
+#include <libft.h>
 #include <framework.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
-static
-int	test_length(t_unit_ctx *head)
+void	unknown_logger(t_test test, const int fd);
+void	err_logger(t_test test, const int fd);
+void	ok_logger(t_test test, const int fd);
+void	ko_logger(t_test test, const int fd);
+void	segv_logger(t_test test, const int fd);
+void	bus_logger(t_test test, const int fd);
+void	abrt_logger(t_test test, const int fd);
+void	fpe_logger(t_test test, const int fd);
+void	pipe_logger(t_test test, const int fd);
+void	ill_logger(t_test test, const int fd);
+void	time_logger(t_test test, const int fd);
+
+#define LOGGER_COUNT 11
+
+const static struct s_loggers
 {
-	int	i;
+	t_status	status;
+	void		(*func)(t_test test, const int fd);
+}	g_loghelpers[LOGGER_COUNT] = {
+	{UNKNOWN, unknown_logger},
+	{ERR, err_logger},
+	{OK, ok_logger},
+	{KO, ko_logger},
+	{SEGV, segv_logger},
+	{BUS, bus_logger},
+	{ABRT, abrt_logger},
+	{FPE, fpe_logger},
+	{PIPE, pipe_logger},
+	{ILL, ill_logger},
+	{TIME, time_logger}
+};
 
-	i = 0;
-	while (head)
+void	ko_logger(t_test test, const int fd)
+{
+	char *const	is_launcher
+		= ft_strnstr(test.name, "tests", ft_strlen(test.name));
+
+	ft_dprintf(fd,
+		C_KO
+		"%s failed.",
+		test.name
+		);
+	if (is_launcher)
 	{
-		i++;
-		head = head->next;
+		ft_dprintf(fd,
+			" look in %.*s.log for more detailed information.",
+			(int)(is_launcher - (test.name - 1)),
+			test.name
+			);
 	}
-	return (i);
+	ft_dprintf(fd, "\n");
 }
 
-static
-void	output_test_result(char *function_name, t_test test)
+void	ok_logger(t_test test, const int fd)
 {
-	log_test(function_name, test);
-	ft_printf("%s:%s:%s\n", function_name, test.name, status(test.status));
+	ft_dprintf(fd,
+		C_OK
+		"%s passed.\n",
+		test.name
+		);
 }
 
-static
-void	print_final_result(int passing_tests, int total_tests)
+void	err_logger(t_test test, const int fd)
 {
-	const int	percent = passing_tests * 100 / total_tests;
-
-	ft_printf("%i/%i [%3i%%] tests passed\n",
-		passing_tests, total_tests, percent);
+	ft_dprintf(fd,
+		C_ERR
+		"A standard library function failed unexpectedly while preparing %s. "
+		"It's exceedingly unlikely your code is at fault.\n",
+		test.name
+		);
 }
 
-int	launch_tests(t_unit_ctx **head)
+void	unknown_logger(t_test test, const int fd)
 {
-	t_unit_ctx	*current;
-	char		*function_name;
-	int			total_tests;
-	int			passing_tests;
+	ft_dprintf(fd,
+		"Somehow, %s didnt execute. "
+		"This is most likely an error with the tests, not with your code.\n",
+		test.name
+		);
+}
 
-	current = *head;
-	if (!current)
-		return (1);
-	function_name = current->test.name;
-	current = current->next;
-	total_tests = test_length(current);
-	passing_tests = 0;
-	while (current)
-	{
-		run_test(&current->test, *head);
-		if (current->test.status == OK)
-			passing_tests++;
-		if (!current->test.silent)
-			output_test_result(function_name, current->test);
-		current = current->next;
-	}
-	print_final_result(passing_tests, total_tests);
-	free_ctx(*head);
-	*head = NULL;
-	return (!(total_tests == passing_tests) * -1);
+#define DIR "./logs/"
+
+void	log_test(const char *file_basename, t_test test)
+{
+	struct stat	statbuf;
+	char		*path;
+	char		*tmp;
+	int			fd;
+	int			i;
+
+	path = ft_strjoin(file_basename, ".log");
+	if (!path)
+		return ;
+	if (stat(DIR, &statbuf) && mkdir(DIR, 0755))
+		return ;
+	tmp = ft_strjoin(DIR, path);
+	free(path);
+	path = tmp;
+	if (!path)
+		return ;
+	fd = open(path, (O_WRONLY | O_APPEND | O_CREAT), 0644);
+	free(path);
+	if (fd < 0)
+		return ;
+	i = -1;
+	while (++i < LOGGER_COUNT)
+		if (test.status == g_loghelpers[i].status)
+			g_loghelpers[i].func(test, fd);
+	close(fd);
 }
