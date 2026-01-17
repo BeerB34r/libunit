@@ -30,12 +30,22 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/time.h>
 
 static
-void	run_child(t_testfunc func, t_unit_ctx *head)
+void	run_child(t_testfunc func, size_t timeout, t_unit_ctx *head)
 {
+	int					retval;
+	struct itimerval	timer;
+
 	free_ctx(head);
-	exit(func());
+	timer = (struct itimerval){0};
+	timer.it_value.tv_sec = timeout;
+	setitimer(ITIMER_REAL, &timer, NULL);
+	retval = func();
+	timer = (struct itimerval){0};
+	setitimer(ITIMER_REAL, &timer, NULL);
+	exit(retval);
 }
 
 // TODO: timeout functionality
@@ -53,7 +63,7 @@ void	run_test(t_test	*test, t_unit_ctx *head)
 		return ;
 	}
 	if (proc == 0)
-		run_child(test->func, head);
+		run_child(test->func, test->timeout_seconds, head);
 	while (wait(&stat) != proc)
 		;
 	if (WIFEXITED(stat))

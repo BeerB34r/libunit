@@ -28,7 +28,7 @@
 #include <framework.h>
 #include <signal.h>
 
-#define SUPPORTED_SIGNALS 6
+#define SUPPORTED_SIGNALS 7
 
 const static struct s_map_sig_stat
 {
@@ -40,7 +40,8 @@ const static struct s_map_sig_stat
 	{SIGABRT, ABRT},
 	{SIGFPE, FPE},
 	{SIGPIPE, PIPE},
-	{SIGILL, ILL}
+	{SIGILL, ILL},
+	{SIGALRM, TIME}
 };
 
 t_status	map_signal_status(int signal)
@@ -54,7 +55,7 @@ t_status	map_signal_status(int signal)
 	return (ERR);
 }
 
-#define SUPPORTED_RETVAL_COUNT 9
+#define SUPPORTED_RETVAL_COUNT 10
 
 const static struct s_map
 {
@@ -69,6 +70,7 @@ const static struct s_map
 	{5, FPE},
 	{6, PIPE},
 	{7, ILL},
+	{8, TIME},
 	{-1, KO}
 };
 

@@ -1,7 +1,8 @@
+FIB_TESTS		= $(addprefix fib/, 00_launcher.c 01_basic.c 02_negative.c 03_bignum.c)
 PUTS_TESTS		= $(addprefix puts/, 00_launcher.c 01_basic.c 02_null.c 03_bigger_string.c)
 STRLEN_TESTS	= $(addprefix strlen/, 00_launcher.c 01_basic.c 02_null.c 03_bigger_string.c)
-TESTS			= $(STRLEN_TESTS) $(PUTS_TESTS)
-FUNCTIONS		= functions/ft_strlen.c functions/puts.c
+TESTS			= $(STRLEN_TESTS) $(PUTS_TESTS) $(FIB_TESTS)
+FUNCTIONS		= $(addprefix functions/, ft_strlen.c puts.c fib.c)
 MAIN			= main.c
 LIBS			= ../libunit.a ../lib/libft/libft.a
 LDFLAGS			= $(LIBS) -lm
@@ -12,7 +13,7 @@ CPPFLAGS		= -I../inc/ -I../lib/libft/include/
 all: test
 
 test: $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
-	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(MAIN) $(TESTS) $(LDFLAGS) 
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(MAIN) $(TESTS) $(FUNCTIONS) $(LDFLAGS) 
 
 %.o	: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<

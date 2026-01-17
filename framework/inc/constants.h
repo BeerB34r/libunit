@@ -38,5 +38,6 @@
 # define C_FPE "\033[1;31m[SIGFPE]\033[1;0m"
 # define C_PIPE "\033[1;31m[SIGPIPE]\033[1;0m"
 # define C_ILL "\033[1;31m[SIGILL]\033[1;0m"
+# define C_TIME "\033[1;31m[TIME]\033[1;0m"
 
 #endif // CONSTANTS_H
