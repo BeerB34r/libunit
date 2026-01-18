@@ -40,6 +40,9 @@ compile: $(LIBS) $(TESTS:.c=.o) $(MAIN:.c=.o)
 ../framework/lib/libft/libft.a:
 	$(MAKE) -C ../framework/lib/libft/
 
+clean:
+	$(RM) $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
+
 re:
 	$(RM) $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
 	$(MAKE)
