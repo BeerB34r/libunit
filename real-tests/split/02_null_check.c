@@ -6,7 +6,7 @@
 /*   By: akim <akim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 17:13:57 by akim              #+#    #+#             */
-/*   Updated: 2026/01/18 20:44:20 by akim             ###   ########.fr       */
+/*   Updated: 2026/01/18 20:55:02 by akim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ int	split_null_check_test(void)
 	{
 		if (str)
 		{
-			if (str[0])
-				free(str[0]);
-			if (str[1])
-				free(str[1]);
+			free(str[0]);
+			free(str[1]);
 			free(str);
 		}
 		return (0);
@@ -37,10 +35,8 @@ int	split_null_check_test(void)
 	{
 		if (str)
 		{
-			if (str[0])
-				free(str[0]);
-			if (str[1])
-				free(str[1]);
+			free(str[0]);
+			free(str[1]);
 			free(str);
 		}
 		return (-1);
