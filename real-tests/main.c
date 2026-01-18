@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: akim <akim@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/18 14:01:09 by mde-beer          #+#    #+#             */
-/*   Updated: 2026/01/18 18:22:42 by akim             ###   ########.fr       */
+/*                                                            ::::::::        */
+/*   main.c                                                  :+:    :+:       */
+/*                                                          +:+               */
+/*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
+/*                                                        +#+                 */
+/*   Created: 2026/01/18 14:01:09 by mde-beer            #+#    #+#           */
+/*   Updated: 2026/01/18 14:05:12 by mde-beer            ########   odam.nl   */
 /*                                                                            */
-/* ************************************************************************** */
-
+/*   —————No norm compliance?——————                                           */
+/*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
 /*   ⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇                                           */
 /*   ⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀                                           */
 /*   ⠀⠪⡪⡪⣪⢪⢺⢸⢢⢓⢆⢤⢀⠀⠀⠀⠀⠈⢊⢞⡾⣿⡯⣏⢮⠷⠁⠀⠀⠀                                           */
@@ -30,7 +30,6 @@
 // test suites:
 int	framework_launcher(void);
 int	printf_launcher(void);
-int	split_launcher(void);
 
 int	main(void)
 {
@@ -44,10 +43,6 @@ int	main(void)
 	load_test(&tests, (t_test){
 		.name = "Printf",
 		.func = &printf_launcher
-	});
-	load_test(&tests, (t_test){
-		.name = "Split",
-		.func = &split_launcher
 	});
 	return (launch_tests(&tests));
 }
