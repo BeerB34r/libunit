@@ -9,7 +9,6 @@
 /*   Updated: 2026/01/18 19:54:09 by akim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 /*   ⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇                                           */
 /*   ⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀                                           */
 /*   ⠀⠪⡪⡪⣪⢪⢺⢸⢢⢓⢆⢤⢀⠀⠀⠀⠀⠈⢊⢞⡾⣿⡯⣏⢮⠷⠁⠀⠀⠀                                           */
@@ -90,7 +89,7 @@ int	list(t_unit_ctx *current)
 	ft_printf(CYAN "[INFO]" CLEAR " Available test suites:\n");
 	while (current)
 	{
-		ft_printf("%s\n", current->test.name);
+		ft_printf("	%s\n", current->test.name);
 		current = current->next;
 	}
 	return (1);
