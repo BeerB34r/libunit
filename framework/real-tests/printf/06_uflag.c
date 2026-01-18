@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   06_uflag.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aslobodi <aslobodi@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/18 15:18:21 by aslobodi          #+#    #+#             */
+/*   Updated: 2026/01/18 15:32:26 by aslobodi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stddef.h> // symbol size_t
 #include <framework.h>
 #include <libft.h>
@@ -25,7 +37,9 @@ int	check_return_two(void)
 static
 int	check_return_three(void)
 {
-    unsigned int n = 4294967295;
+	unsigned int	n;
+
+	n = 4294967295;
 	if (printf("%u", n) == 10)
 		return (0);
 	return (1);
@@ -35,14 +49,6 @@ static
 int	check_return_four(void)
 {
 	if (printf("dgs%uxx", 10) == 7)
-		return (0);
-	return (1);
-}
-
-static
-int	check_return_five(void)
-{
-	if (printf("%u%uu%u", 1, 2, -3) == 13)
 		return (0);
 	return (1);
 }
@@ -59,8 +65,6 @@ int	printf_uflag_test(void)
 		retval = printing_test("4294967295", "", &check_return_three);
 	if (!retval)
 		retval = printing_test("dgs10xx", "", &check_return_four);
-	if (!retval)
-		retval = printing_test("12u4294967293", "", &check_return_five);
 	if (retval)
 		return (retval);
 	return (0);

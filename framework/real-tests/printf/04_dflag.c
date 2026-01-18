@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   04_dflag.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aslobodi <aslobodi@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/18 15:18:26 by aslobodi          #+#    #+#             */
+/*   Updated: 2026/01/18 15:37:41 by aslobodi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stddef.h> // symbol size_t
 #include <framework.h>
 #include <libft.h>
@@ -17,7 +29,7 @@ int	check_return_one(void)
 static
 int	check_return_two(void)
 {
-	if (printf("%d", -10) == 3)
+	if (printf("%dx%d", -10, 50000) == 9)
 		return (0);
 	return (1);
 }
@@ -25,7 +37,7 @@ int	check_return_two(void)
 static
 int	check_return_three(void)
 {
-	if (printf("%d", -6000023) == 8)
+	if (printf("%di%d%di%d", 2147483647, 2147483647, 0, 2147483647) == 33)
 		return (0);
 	return (1);
 }
@@ -33,16 +45,10 @@ int	check_return_three(void)
 static
 int	check_return_four(void)
 {
-	if (printf("%d", 2147483647) == 10)
-		return (0);
-	return (1);
-}
+	int	n;
 
-static
-int	check_return_five(void)
-{
-    int n = -2147483648;
-	if (printf("%ds", n) == 12)
+	n = -2147483648;
+	if (printf("%d%di%d", -10, n, 0) == 16)
 		return (0);
 	return (1);
 }
@@ -54,13 +60,12 @@ int	printf_dflag_test(void)
 
 	retval = printing_test("0", "", &check_return_one);
 	if (!retval)
-		retval = printing_test("-10", "", &check_return_two);
+		retval = printing_test("-10x50000", "", &check_return_two);
 	if (!retval)
-		retval = printing_test("-6000023", "", &check_return_three);
+		retval = printing_test("2147483647i21474836470i2147483647",
+				"", &check_return_three);
 	if (!retval)
-		retval = printing_test("2147483647", "", &check_return_four);
-	if (!retval)
-		retval = printing_test("-2147483648s", "", &check_return_five);
+		retval = printing_test("-10-2147483648i0", "", &check_return_four);
 	if (retval)
 		return (retval);
 	return (0);

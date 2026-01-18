@@ -1,5 +1,6 @@
 PRINTF_TESTS = $(addprefix printf/, 00_launcher.c 01_basic.c 02_cflag.c 03_sflag.c  \
-                  04_dflag.c 05_iflag.c 06_uflag.c)
+                  04_dflag.c 05_iflag.c 06_uflag.c 07_pflag.c 08_xlflag.c 09_xuflag.c \
+				  10_perflag.c 11_mixed.c)
 TESTS			= $(PRINTF_TESTS)
 FUNCTIONS		= $(addprefix functions/printf/, printf.c printf_utils.c)
 MAIN			= main.c

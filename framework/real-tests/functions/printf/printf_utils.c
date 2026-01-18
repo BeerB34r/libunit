@@ -67,6 +67,8 @@ int	ft_putptr(void *ptr)
 
 	len = 0;
 	aux = 0;
+    if (ptr == 0)
+		return (write(1, "(nil)", 5));
 	if (ft_putstr("0x") == -1)
 		return (-1);
 	len += 2;
