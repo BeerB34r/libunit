@@ -28,18 +28,20 @@
 #include <unistd.h>
 #include <framework.h>
 
+static
 int	printing_dummy(void)
 {
 	write(STDOUT_FILENO, "Hello, World!\n", 14);
 	return (0);
 }
 
+static
 int	stdout_capture_dummy(void)
 {
 	return (printing_test("Hello, World!\n", "", &printing_dummy));
 }
 
-int	stdout_capture_test(void)
+int	ok_stdout_capture_test(void)
 {
 	t_unit_ctx	*tests;
 

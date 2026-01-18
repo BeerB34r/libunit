@@ -29,6 +29,7 @@
 
 // tests:
 int	ok_launcher(void);
+int	ko_launcher(void);
 
 // launcher:
 int	framework_tester_launcher(void)
@@ -39,6 +40,10 @@ int	framework_tester_launcher(void)
 	load_test(&tests, (t_test){
 		.name = "OK",
 		.func = &ok_launcher
+	});
+	load_test(&tests, (t_test){
+		.name = "KO",
+		.func = &ko_launcher
 	});
 	return (launch_tests(&tests));
 }

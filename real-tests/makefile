@@ -1,3 +1,4 @@
+F_KO			= $(addprefix KO/, 00_launcher.c 01_return.c 02_stdout_capture.c)
 F_OK			= $(addprefix OK/, 00_launcher.c 01_return.c 02_stdout_capture.c)
 FRAMEWORK_TESTS	= $(addprefix framework/, 00_launcher.c $(F_OK) $(F_KO) $(F_SEGV) $(F_BUS) $(F_ABRT) $(F_FPE) $(F_PIPE) $(F_ILL) $(F_TIME))
 TESTS			= $(FRAMEWORK_TESTS)

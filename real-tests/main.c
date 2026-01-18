@@ -6,7 +6,7 @@
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/01/18 14:01:09 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/18 14:02:50 by mde-beer            ########   odam.nl   */
+/*   Updated: 2026/01/18 14:05:12 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -34,4 +34,9 @@ int	main(void)
 	t_unit_ctx	*tests;
 
 	tests = create_ctx("All the tests");
+	load_test(&tests, (t_test){
+		.name = "Framework",
+		.func = &framework_tester_launcher
+	});
+	return (launch_tests(&tests));
 }

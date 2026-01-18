@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   01_return.c                                             :+:    :+:       */
+/*   00_launcher.c                                           :+:    :+:       */
 /*                                                          +:+               */
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
-/*   Created: 2026/01/18 13:39:38 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/18 13:44:04 by mde-beer            ########   odam.nl   */
+/*   Created: 2026/01/18 13:37:40 by mde-beer            #+#    #+#           */
+/*   Updated: 2026/01/18 13:38:41 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -27,28 +27,23 @@
 
 #include <framework.h>
 
-static
-int	return_dummy(void)
-{
-	return (0);
-}
+// tests:
+int	ko_return_test(void);
+int	ko_stdout_capture_test(void);
 
-int	ok_return_test(void)
+// launcher:
+int	ko_launcher(void)
 {
 	t_unit_ctx	*tests;
 
-	tests = create_ctx("dummy");
+	tests = create_ctx("OK");
 	load_test(&tests, (t_test){
 		.name = "Return value",
-		.func = &return_dummy
+		.func = &ko_return_test
 	});
 	load_test(&tests, (t_test){
-		.name = "Return value",
-		.func = &return_dummy
-	});
-	load_test(&tests, (t_test){
-		.name = "Return value",
-		.func = &return_dummy
+		.name = "Stdout capture",
+		.func = &ko_stdout_capture_test
 	});
 	return (launch_tests(&tests));
 }

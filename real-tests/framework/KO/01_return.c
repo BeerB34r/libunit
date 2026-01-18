@@ -30,10 +30,10 @@
 static
 int	return_dummy(void)
 {
-	return (0);
+	return (1);
 }
 
-int	ok_return_test(void)
+int	ko_return_test(void)
 {
 	t_unit_ctx	*tests;
 
