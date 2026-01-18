@@ -30,7 +30,7 @@ test: compile run
 run:
 	./test
 compile: $(LIBS) $(TESTS:.c=.o) $(MAIN:.c=.o)
-	$(CC) $(CFLAGS) -o $@ $(MAIN:.c=.o) $(TESTS:.c=.o) $(LDFLAGS) 
+	$(CC) $(CFLAGS) -o test $(MAIN:.c=.o) $(TESTS:.c=.o) $(LDFLAGS) 
 
 %.o	: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
