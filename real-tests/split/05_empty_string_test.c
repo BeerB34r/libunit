@@ -6,11 +6,12 @@
 /*   By: akim <akim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 17:28:48 by akim              #+#    #+#             */
-/*   Updated: 2026/01/18 20:41:24 by akim             ###   ########.fr       */
+/*   Updated: 2026/01/18 20:44:34 by akim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
+#include <stdlib.h>
 
 // function to be tested:
 char	**ft_split(const char *s, char c);

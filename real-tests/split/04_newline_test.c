@@ -6,11 +6,12 @@
 /*   By: akim <akim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 17:15:21 by akim              #+#    #+#             */
-/*   Updated: 2026/01/18 20:41:33 by akim             ###   ########.fr       */
+/*   Updated: 2026/01/18 20:44:29 by akim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
+#include <stdlib.h>
 
 // function to be tested:
 char	**ft_split(const char *s, char c);
@@ -42,6 +43,6 @@ int	split_newline_test(void)
 				free(str[1]);
 			free(str);
 		}
-		return (0);
+		return (-1);
 	}
 }

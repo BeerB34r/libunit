@@ -6,11 +6,12 @@
 /*   By: akim <akim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 17:13:57 by akim              #+#    #+#             */
-/*   Updated: 2026/01/18 20:34:02 by akim             ###   ########.fr       */
+/*   Updated: 2026/01/18 20:44:05 by akim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
+#include <stdlib.h>
 
 // function to be tested:
 void	*ft_calloc(size_t nmemb, size_t size);
