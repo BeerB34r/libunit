@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   framework.h                                             :+:    :+:       */
+/*   01_ok.c                                                 :+:    :+:       */
 /*                                                          +:+               */
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
-/*   Created: 2026/01/16 19:35:56 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/17 15:34:08 by mde-beer            ########   odam.nl   */
+/*   Created: 2026/01/18 15:24:08 by mde-beer            #+#    #+#           */
+/*   Updated: 2026/01/18 15:25:02 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -25,52 +25,24 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
-#ifndef FRAMEWORK_H
-# define FRAMEWORK_H
+#include <framework.h>
 
-// subheaders
-# include <constants.h>
-# include <types.h>
+int	ok_launcher(void);
 
-// Porcelain
-t_unit_ctx	*create_ctx(char *function_name);
-void		load_test(t_unit_ctx **head, t_test test);
-int			printing_test(
-				const char *expected_stdout,
-				const char *expected_stderr,
-				t_testfunc func
-				);
-int			launch_tests(t_unit_ctx **head);
-/*
- * int	example_launcher(void)
- * {
- * 	t_unit_ctx	*ctx;
- *
- * 	load_test(&ctx, (t_test){.name = "example", .func = &example_test});
- * 	return (launch_tests(&ctx));
- * }
- */
+const static char *const	g_expected
+	= "dummy:Return value:\033[1;32m[OK]\033[1;0m\n"
+	"dummy:Return value:\033[1;32m[OK]\033[1;0m\n"
+	"dummy:Return value:\033[1;32m[OK]\033[1;0m\n"
+	"3/3 [100%] tests passed\n"
+	"OK:Return value:\033[1;32m[OK]\033[1;0m\n"
+	"dummy:Stdout capture:\033[1;32m[OK]\033[1;0m\n"
+	"dummy:Stdout capture:\033[1;32m[OK]\033[1;0m\n"
+	"dummy:Stdout capture:\033[1;32m[OK]\033[1;0m\n"
+	"3/3 [100%] tests passed\n"
+	"OK:Stdout capture:\033[1;32m[OK]\033[1;0m\n"
+	"2/2 [100%] tests passed\n";
 
-// Plumbing
-char		*status(t_status status);
-void		free_ctx(t_unit_ctx *ctx);
-t_unit_ctx	*get_last(t_unit_ctx *ctx);
-void		run_test(t_test	*test, t_unit_ctx *head);
-t_status	map_signal_status(int sig);
-int			map_status_retval(t_status stat);
-t_status	map_retval_status(int retval);
-void		log_test(const char *basename, t_test test);
-// // Loggers
-void		unknown_logger(t_test test, const int fd);
-void		err_logger(t_test test, const int fd);
-void		ok_logger(t_test test, const int fd);
-void		ko_logger(t_test test, const int fd);
-void		segv_logger(t_test test, const int fd);
-void		bus_logger(t_test test, const int fd);
-void		abrt_logger(t_test test, const int fd);
-void		fpe_logger(t_test test, const int fd);
-void		pipe_logger(t_test test, const int fd);
-void		ill_logger(t_test test, const int fd);
-void		time_logger(t_test test, const int fd);
-
-#endif // FRAMEWORK_H
+int	ok_test(void)
+{
+	return (printing_test(g_expected, "", &ok_launcher));
+}
