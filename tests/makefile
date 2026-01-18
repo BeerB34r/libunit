@@ -4,20 +4,21 @@ STRLEN_TESTS	= $(addprefix strlen/, 00_launcher.c 01_basic.c 02_null.c 03_bigger
 TESTS			= $(STRLEN_TESTS) $(PUTS_TESTS) $(FIB_TESTS)
 FUNCTIONS		= $(addprefix functions/, ft_strlen.c puts.c fib.c)
 MAIN			= main.c
+NAME			= ./test_bin
 LIBS			= ../framework/libunit.a ../framework/lib/libft/libft.a
 LDFLAGS			= $(LIBS) -lm
 CFLAGS			= -Wall -Wextra -Werror
 CPPFLAGS		= -I../framework/inc/ -I../framework/lib/libft/include/
 .PHONY			: all test run
 
-all: test
+all: $(NAME)
 
 test: run
 
-compile: $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
-	$(CC) $(CPPFLAGS) $(CFLAGS) -o test $(MAIN) $(TESTS) $(FUNCTIONS) $(LDFLAGS) 
-run: compile
-	./test
+$(NAME): $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(MAIN) $(TESTS) $(FUNCTIONS) $(LDFLAGS) 
+run: $(NAME)
+	$(NAME)
 
 %.o	: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
@@ -26,6 +27,13 @@ run: compile
 	$(MAKE) -C ../framework
 ../framework/lib/libft/libft.a:
 	$(MAKE) -C ../framework/lib/libft/
+
+clean:
+	$(RM) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
+
+fclean:
+	$(RM) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
+	$(RM) $(LIBS) $(NAME)
 
 re:
 	$(RM) $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)

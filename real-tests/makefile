@@ -23,20 +23,22 @@ CALLOC_TESTS	= $(addprefix calloc/, 00_launcher.c 01_basic_test.c 02_pointer_tes
 # REST OF THE OWL
 TESTS			= $(FRAMEWORK_TESTS) $(PRINTF_TESTS) $(SPLIT_TESTS) $(CALLOC_TESTS)
 MAIN			= main.c
+NAME			= ./test_bin
 LIBS			= ../framework/libunit.a ../framework/lib/libft/libft.a
 LDFLAGS			= $(LIBS) -lm
 CFLAGS			= -Wall -Wextra -Werror
 CPPFLAGS		= -I../framework/inc/ -I../framework/lib/libft/include/
 .PHONY			: all test run
 
-all: test
+all: $(NAME)
 
-test: compile run
+test: run
 
-run:
-	./test
-compile: $(LIBS) $(TESTS:.c=.o) $(MAIN:.c=.o)
-	$(CC) $(CFLAGS) -o test $(MAIN:.c=.o) $(TESTS:.c=.o) $(LDFLAGS) 
+run: $(NAME)
+	$(NAME)
+
+$(NAME): $(LIBS) $(TESTS:.c=.o) $(MAIN:.c=.o)
+	$(CC) $(CFLAGS) -o $@ $(MAIN:.c=.o) $(TESTS:.c=.o) $(LDFLAGS) 
 
 %.o	: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
@@ -47,7 +49,11 @@ compile: $(LIBS) $(TESTS:.c=.o) $(MAIN:.c=.o)
 	$(MAKE) -C ../framework/lib/libft/
 
 clean:
-	$(RM) $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
+	$(RM) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
+
+fclean:
+	$(RM) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
+	$(RM) $(LIBS) $(NAME)
 
 re:
 	$(RM) $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
