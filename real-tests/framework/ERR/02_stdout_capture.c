@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   01_return.c                                             :+:    :+:       */
+/*   02_stdout_capture.c                                     :+:    :+:       */
 /*                                                          +:+               */
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
-/*   Created: 2026/01/18 13:39:38 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/18 13:44:04 by mde-beer            ########   odam.nl   */
+/*   Created: 2026/01/18 13:44:37 by mde-beer            #+#    #+#           */
+/*   Updated: 2026/01/18 13:49:53 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -25,33 +25,43 @@
 /*   ——————————————————————————————                                           */
 /* ************************************************************************** */
 
+#include <signal.h>
+#include <unistd.h>
 #include <framework.h>
 
 static
-int	return_dummy(void)
+int	printing_dummy(void)
 {
-	return (1);
+	raise(SIGUSR1);
+	write(STDOUT_FILENO, "Hello, World!\n", 14);
+	return (0);
 }
 
-int	ko_return_test(void)
+static
+int	stdout_capture_dummy(void)
+{
+	return (printing_test("Hello, Universe!\n", "", &printing_dummy));
+}
+
+int	err_stdout_capture_test(void)
 {
 	t_unit_ctx	*tests;
 
 	tests = create_ctx("dummy");
 	load_test(&tests, (t_test){
-		.name = "Return value",
-		.func = &return_dummy,
-		.expected = KO
+		.name = "Stdout capture",
+		.func = &stdout_capture_dummy,
+		.expected = ERR
 	});
 	load_test(&tests, (t_test){
-		.name = "Return value",
-		.func = &return_dummy,
-		.expected = KO
+		.name = "Stdout capture",
+		.func = &stdout_capture_dummy,
+		.expected = ERR
 	});
 	load_test(&tests, (t_test){
-		.name = "Return value",
-		.func = &return_dummy,
-		.expected = KO
+		.name = "Stdout capture",
+		.func = &stdout_capture_dummy,
+		.expected = ERR
 	});
 	return (launch_tests(&tests));
 }

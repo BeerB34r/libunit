@@ -1,18 +1,28 @@
-F_KO			= $(addprefix KO/, 00_launcher.c 01_return.c 02_stdout_capture.c)
-F_OK			= $(addprefix OK/, 00_launcher.c 01_return.c 02_stdout_capture.c)
-FRAMEWORK_TESTS	= $(addprefix framework/, 00_launcher.c $(F_OK) $(F_KO) $(F_SEGV) $(F_BUS) $(F_ABRT) $(F_FPE) $(F_PIPE) $(F_ILL) $(F_TIME))
+F_ERR			= $(addprefix ERR/, 00_launcher.c 01_return.c 02_stdout_capture.c) 10_err.c
+F_BUS			= $(addprefix BUS/, 00_launcher.c 01_return.c 02_stdout_capture.c) 04_bus.c
+F_ABRT			= $(addprefix ABRT/, 00_launcher.c 01_return.c 02_stdout_capture.c) 05_abrt.c
+F_FPE			= $(addprefix FPE/, 00_launcher.c 01_return.c 02_stdout_capture.c) 06_fpe.c
+F_PIPE			= $(addprefix PIPE/, 00_launcher.c 01_return.c 02_stdout_capture.c) 07_pipe.c
+F_ILL			= $(addprefix ILL/, 00_launcher.c 01_return.c 02_stdout_capture.c) 08_ill.c
+F_TIME			= $(addprefix TIME/, 00_launcher.c 01_return.c 02_stdout_capture.c) 09_time.c
+F_SEGV			= $(addprefix SEGV/, 00_launcher.c 01_return.c 02_stdout_capture.c) 03_segv.c
+F_KO			= $(addprefix KO/, 00_launcher.c 01_return.c 02_stdout_capture.c) 02_ko.c
+F_OK			= $(addprefix OK/, 00_launcher.c 01_return.c 02_stdout_capture.c) 01_ok.c
+FRAMEWORK_TESTS	= $(addprefix framework/, 00_launcher.c $(F_OK) $(F_KO) $(F_SEGV) $(F_BUS) $(F_ABRT) $(F_FPE) $(F_PIPE) $(F_ILL) $(F_TIME) $(F_ERR))
 TESTS			= $(FRAMEWORK_TESTS)
 MAIN			= main.c
 LIBS			= ../framework/libunit.a ../framework/lib/libft/libft.a
 LDFLAGS			= $(LIBS) -lm
-CFLAGS			= -Wall -Wextra -Werror -g 
+CFLAGS			= -Wall -Wextra -Werror
 CPPFLAGS		= -I../framework/inc/ -I../framework/lib/libft/include/
-.PHONY			: all test
+.PHONY			: all
 
 all: test
 
 test: $(LIBS) $(TESTS:.c=.o) $(MAIN:.c=.o)
 	$(CC) $(CFLAGS) -o $@ $(MAIN:.c=.o) $(TESTS:.c=.o) $(LDFLAGS) 
+run: test
+	./test
 
 %.o	: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<

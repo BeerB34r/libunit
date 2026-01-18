@@ -127,7 +127,11 @@ struct itimerval *timer
 	wait_for_child(proc, test);
 }
 
-int	printing_test(char *expected_stdout, char *expected_stderr, t_testfunc func)
+int	printing_test(
+const char *expected_stdout,
+const char *expected_stderr,
+t_testfunc func
+)
 {
 	int					stdoutpipe[2];
 	int					stderrpipe[2];

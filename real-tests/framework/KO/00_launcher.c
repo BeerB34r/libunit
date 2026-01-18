@@ -36,14 +36,14 @@ int	ko_launcher(void)
 {
 	t_unit_ctx	*tests;
 
-	tests = create_ctx("OK");
+	tests = create_ctx("KO");
 	load_test(&tests, (t_test){
 		.name = "Return value",
-		.func = &ko_return_test
+		.func = &ko_return_test,
 	});
 	load_test(&tests, (t_test){
 		.name = "Stdout capture",
-		.func = &ko_stdout_capture_test
+		.func = &ko_stdout_capture_test,
 	});
 	return (launch_tests(&tests));
 }

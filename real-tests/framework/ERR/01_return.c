@@ -26,14 +26,16 @@
 /* ************************************************************************** */
 
 #include <framework.h>
+#include <signal.h>
 
 static
 int	return_dummy(void)
 {
+	raise(SIGUSR1);
 	return (1);
 }
 
-int	ko_return_test(void)
+int	err_return_test(void)
 {
 	t_unit_ctx	*tests;
 
@@ -41,17 +43,17 @@ int	ko_return_test(void)
 	load_test(&tests, (t_test){
 		.name = "Return value",
 		.func = &return_dummy,
-		.expected = KO
+		.expected = ERR
 	});
 	load_test(&tests, (t_test){
 		.name = "Return value",
 		.func = &return_dummy,
-		.expected = KO
+		.expected = ERR
 	});
 	load_test(&tests, (t_test){
 		.name = "Return value",
 		.func = &return_dummy,
-		.expected = KO
+		.expected = ERR
 	});
 	return (launch_tests(&tests));
 }

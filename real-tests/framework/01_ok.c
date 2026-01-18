@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   01_return.c                                             :+:    :+:       */
+/*   01_ok.c                                                 :+:    :+:       */
 /*                                                          +:+               */
 /*   By: mde-beer <mde-beer@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
-/*   Created: 2026/01/18 13:39:38 by mde-beer            #+#    #+#           */
-/*   Updated: 2026/01/18 13:44:04 by mde-beer            ########   odam.nl   */
+/*   Created: 2026/01/18 15:24:08 by mde-beer            #+#    #+#           */
+/*   Updated: 2026/01/18 15:25:02 by mde-beer            ########   odam.nl   */
 /*                                                                            */
 /*   —————No norm compliance?——————                                           */
 /*   ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝                                           */
@@ -27,31 +27,22 @@
 
 #include <framework.h>
 
-static
-int	return_dummy(void)
-{
-	return (1);
-}
+int	ok_launcher(void);
 
-int	ko_return_test(void)
-{
-	t_unit_ctx	*tests;
+const static char *const	g_expected
+	= "dummy:Return value:\033[1;32m[OK]\033[1;0m\n"
+	"dummy:Return value:\033[1;32m[OK]\033[1;0m\n"
+	"dummy:Return value:\033[1;32m[OK]\033[1;0m\n"
+	"3/3 [100%] tests passed\n"
+	"OK:Return value:\033[1;32m[OK]\033[1;0m\n"
+	"dummy:Stdout capture:\033[1;32m[OK]\033[1;0m\n"
+	"dummy:Stdout capture:\033[1;32m[OK]\033[1;0m\n"
+	"dummy:Stdout capture:\033[1;32m[OK]\033[1;0m\n"
+	"3/3 [100%] tests passed\n"
+	"OK:Stdout capture:\033[1;32m[OK]\033[1;0m\n"
+	"2/2 [100%] tests passed\n";
 
-	tests = create_ctx("dummy");
-	load_test(&tests, (t_test){
-		.name = "Return value",
-		.func = &return_dummy,
-		.expected = KO
-	});
-	load_test(&tests, (t_test){
-		.name = "Return value",
-		.func = &return_dummy,
-		.expected = KO
-	});
-	load_test(&tests, (t_test){
-		.name = "Return value",
-		.func = &return_dummy,
-		.expected = KO
-	});
-	return (launch_tests(&tests));
+int	ok_test(void)
+{
+	return (printing_test(g_expected, "", &ok_launcher));
 }

@@ -7,7 +7,7 @@ DEPDIR				:=	dep/
 DEPFLAG				=	-MM -MF $@ -MT $@ -MT $(BINDIR)$(notdir $(basename $<)).o
 INC					=	-Iinc/ -Ilib/libft/include/
 VPATH				=	$(SRCDIR)
-CFLAGS				:=	-Wall -Wextra -Werror -g
+CFLAGS				:=	-Wall -Wextra -Werror
 CPPFLAGS			:=	$(INC)
 LDFLAGS				:=	-lm
 CC					:=	cc
@@ -47,6 +47,3 @@ fclean				:
 re					:
 	+$(MAKE) fclean
 	+$(MAKE) all
-
-clangd				:
-	intercept-build-14 $(MAKE)

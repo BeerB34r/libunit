@@ -26,14 +26,16 @@
 /* ************************************************************************** */
 
 #include <framework.h>
+#include <unistd.h>
 
 static
 int	return_dummy(void)
 {
+	sleep(5);
 	return (1);
 }
 
-int	ko_return_test(void)
+int	time_return_test(void)
 {
 	t_unit_ctx	*tests;
 
@@ -41,17 +43,20 @@ int	ko_return_test(void)
 	load_test(&tests, (t_test){
 		.name = "Return value",
 		.func = &return_dummy,
-		.expected = KO
+		.timeout_seconds = 1,
+		.expected = TIME
 	});
 	load_test(&tests, (t_test){
 		.name = "Return value",
 		.func = &return_dummy,
-		.expected = KO
+		.timeout_seconds = 1,
+		.expected = TIME
 	});
 	load_test(&tests, (t_test){
 		.name = "Return value",
 		.func = &return_dummy,
-		.expected = KO
+		.timeout_seconds = 1,
+		.expected = TIME
 	});
 	return (launch_tests(&tests));
 }

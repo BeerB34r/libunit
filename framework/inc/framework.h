@@ -36,8 +36,8 @@
 t_unit_ctx	*create_ctx(char *function_name);
 void		load_test(t_unit_ctx **head, t_test test);
 int			printing_test(
-				char *expected_stdout,
-				char *expected_stderr,
+				const char *expected_stdout,
+				const char *expected_stderr,
 				t_testfunc func
 				);
 int			launch_tests(t_unit_ctx **head);
