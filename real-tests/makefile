@@ -14,8 +14,11 @@ FRAMEWORK_TESTS	= $(addprefix framework/, 00_launcher.c $(F_OK) $(F_KO) $(F_SEGV
 # PRINTF SECTION
 PRINTF_TESTS	= $(addprefix printf/, 00_launcher.c 01_basic.c 02_cflag.c 03_sflag.c 04_dflag.c 05_iflag.c 06_uflag.c 07_pflag.c 08_xlflag.c 09_xuflag.c 10_perflag.c 11_mixed.c)
 
+# SPLIT SECTION
+SPLIT_TESTS	= $(addprefix split/, 00_launcher.c 01_basic_test.c 02_null_check.c 03_consecutive_char_test.c 04_newline_test.c 05_empty_string_test.c)
+
 # REST OF THE OWL
-TESTS			= $(FRAMEWORK_TESTS) $(PRINTF_TESTS)
+TESTS			= $(FRAMEWORK_TESTS) $(PRINTF_TESTS) $(SPLIT_TESTS)
 MAIN			= main.c
 LIBS			= ../framework/libunit.a ../framework/lib/libft/libft.a
 LDFLAGS			= $(LIBS) -lm
@@ -30,7 +33,7 @@ test: compile run
 run:
 	./test
 compile: $(LIBS) $(TESTS:.c=.o) $(MAIN:.c=.o)
-	$(CC) $(CFLAGS) -o $@ $(MAIN:.c=.o) $(TESTS:.c=.o) $(LDFLAGS) 
+	$(CC) $(CFLAGS) -o test $(MAIN:.c=.o) $(TESTS:.c=.o) $(LDFLAGS) 
 
 %.o	: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
