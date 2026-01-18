@@ -15,7 +15,7 @@ all: test
 test: run
 
 compile: $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
-	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(MAIN) $(TESTS) $(FUNCTIONS) $(LDFLAGS) 
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o test $(MAIN) $(TESTS) $(FUNCTIONS) $(LDFLAGS) 
 run: compile
 	./test
 
