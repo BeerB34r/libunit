@@ -67,7 +67,7 @@ int	compare_file_to_str(const char *str, const int fd)
 		file_contents = tmp;
 		next = get_next_line(fd);
 	}
-	retval = ft_strncmp(str, file_contents, ft_strlen(str));
+	retval = ft_strncmp(str, file_contents, ft_strlen(str) + 1);
 	free(file_contents);
 	return (retval);
 }
