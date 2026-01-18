@@ -39,7 +39,11 @@ int	strlen_launcher(void)
 
 	tests = create_ctx("strlen()");
 	load_test(&tests, (t_test){.name = "Basic", .func = &ft_strlen_basic_test});
-	load_test(&tests, (t_test){.name = "NULL", .func = &ft_strlen_null_test});
+	load_test(&tests, (t_test){
+		.name = "NULL",
+		.func = &ft_strlen_null_test,
+		.expected = SEGV
+	});
 	load_test(&tests,
 		(t_test){.name = "Bigger str", .func = &ft_strlen_bigger_str_test});
 	return (launch_tests(&tests));

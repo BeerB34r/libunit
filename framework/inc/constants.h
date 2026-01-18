@@ -29,15 +29,19 @@
 # define CONSTANTS_H
 
 // Status codes :3
-# define C_ERR "\033[1;35m[ERR]\033[1;0m"
-# define C_OK "\033[1;32m[OK]\033[1;0m"
-# define C_KO "\033[1;31m[KO]\033[1;0m"
-# define C_SEGV "\033[1;31m[SIGSEGV]\033[1;0m"
-# define C_BUS "\033[1;31m[SIGBUS]\033[1;0m"
-# define C_ABRT "\033[1;31m[SIGABRT]\033[1;0m"
-# define C_FPE "\033[1;31m[SIGFPE]\033[1;0m"
-# define C_PIPE "\033[1;31m[SIGPIPE]\033[1;0m"
-# define C_ILL "\033[1;31m[SIGILL]\033[1;0m"
-# define C_TIME "\033[1;31m[TIME]\033[1;0m"
+# define RED "\033[1;31m"
+# define GREEN "\033[1;32m"
+# define MAGENTA "\033[1;35m"
+# define CLEAR "\033[1;0m"
+# define C_ERR "[ERR]"
+# define C_OK "[OK]"
+# define C_KO "[KO]"
+# define C_SEGV "[SEGV]"
+# define C_BUS "[BUS]"
+# define C_ABRT "[ABRT]"
+# define C_FPE "[FPE]"
+# define C_PIPE "[PIPE]"
+# define C_ILL "[ILL]"
+# define C_TIME "[TIME]"
 
 #endif // CONSTANTS_H

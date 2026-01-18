@@ -43,10 +43,25 @@ int	test_length(t_unit_ctx *head)
 }
 
 static
+char	*color(t_test test)
+{
+	if (test.status == test.expected)
+		return (GREEN);
+	else if (test.status == ERR)
+		return (MAGENTA);
+	return (RED);
+}
+
+static
 void	output_test_result(char *function_name, t_test test)
 {
 	log_test(function_name, test);
-	ft_printf("%s:%s:%s\n", function_name, test.name, status(test.status));
+	ft_printf("%s:%s:%s%s" CLEAR "\n",
+		function_name,
+		test.name,
+		color(test),
+		status(test.status)
+		);
 }
 
 static
@@ -75,7 +90,7 @@ int	launch_tests(t_unit_ctx **head)
 	while (current)
 	{
 		run_test(&current->test, *head);
-		if (current->test.status == OK)
+		if (current->test.status == current->test.expected)
 			passing_tests++;
 		if (!current->test.silent)
 			output_test_result(function_name, current->test);
