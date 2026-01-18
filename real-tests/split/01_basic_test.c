@@ -6,7 +6,7 @@
 /*   By: akim <akim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 17:05:13 by akim              #+#    #+#             */
-/*   Updated: 2026/01/18 18:44:38 by akim             ###   ########.fr       */
+/*   Updated: 2026/01/18 20:36:36 by akim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,27 @@ int	split_basic_test(void)
 
 	str = ft_split("ABC 42", ' ');
 	if (!ft_strncmp(str[0], "ABC", 3) && !ft_strncmp(str[1], "42", 2))
+	{
+		if (str)
+		{
+			if (str[0])
+				free(str[0]);
+			if (str[1])
+				free(str[1]);
+			free(str);
+		}
 		return (0);
+	}
 	else
+	{
+		if (str)
+		{
+			if (str[0])
+				free(str[0]);
+			if (str[1])
+				free(str[1]);
+			free(str);
+		}
 		return (-1);
+	}
 }

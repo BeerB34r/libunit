@@ -6,7 +6,7 @@
 /*   By: akim <akim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 17:13:57 by akim              #+#    #+#             */
-/*   Updated: 2026/01/18 19:51:01 by akim             ###   ########.fr       */
+/*   Updated: 2026/01/18 20:34:02 by akim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	calloc_pointer_test(void)
 
 	str = ft_calloc(1, 8);
 	if (str)
+	{
+		free(str);
 		return (0);
+	}
 	else
 		return (-1);
 }

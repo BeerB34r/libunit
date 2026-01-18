@@ -6,7 +6,7 @@
 /*   By: akim <akim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 17:28:48 by akim              #+#    #+#             */
-/*   Updated: 2026/01/18 18:38:17 by akim             ###   ########.fr       */
+/*   Updated: 2026/01/18 20:41:24 by akim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,19 @@ int	split_empty_string_test(void)
 
 	str = ft_split("", ' ');
 	if (!str[0])
+	{
+		if (str)
+			free(str);
 		return (0);
+	}
 	else
+	{
+		if (str)
+		{
+			if (str[0])
+				free(str[0]);
+			free(str);
+		}
 		return (-1);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: akim <akim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 17:15:21 by akim              #+#    #+#             */
-/*   Updated: 2026/01/18 18:37:46 by akim             ###   ########.fr       */
+/*   Updated: 2026/01/18 20:41:33 by akim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,27 @@ int	split_newline_test(void)
 
 	str = ft_split("ABC \n", ' ');
 	if (!ft_strncmp(str[1], "\n", 1))
+	{
+		if (str)
+		{
+			if (str[0])
+				free(str[0]);
+			if (str[1])
+				free(str[1]);
+			free(str);
+		}
 		return (0);
+	}
 	else
-		return (-1);
+	{
+		if (str)
+		{
+			if (str[0])
+				free(str[0]);
+			if (str[1])
+				free(str[1]);
+			free(str);
+		}
+		return (0);
+	}
 }

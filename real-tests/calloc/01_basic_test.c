@@ -6,7 +6,7 @@
 /*   By: akim <akim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 17:05:13 by akim              #+#    #+#             */
-/*   Updated: 2026/01/18 19:49:37 by akim             ###   ########.fr       */
+/*   Updated: 2026/01/18 20:33:28 by akim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,15 @@ int	calloc_basic_test(void)
 
 	str = ft_calloc(1, 8);
 	if (!ft_memcmp(str, "\0\0\0\0\0\0\0\0", 8))
+	{
+		if (str)
+			free(str);
 		return (0);
+	}
 	else
+	{
+		if (str)
+			free(str);
 		return (-1);
+	}
 }
