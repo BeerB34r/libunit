@@ -40,7 +40,7 @@ int	time_test(void);
 int	err_test(void);
 
 // launcher:
-int	framework_tester_launcher(void)
+int	framework_launcher(void)
 {
 	t_unit_ctx	*tests;
 

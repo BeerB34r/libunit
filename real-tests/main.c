@@ -27,7 +27,9 @@
 
 #include <framework.h>
 
-int	framework_tester_launcher(void);
+// test suites:
+int	framework_launcher(void);
+int	printf_launcher(void);
 
 int	main(void)
 {
@@ -36,7 +38,11 @@ int	main(void)
 	tests = create_ctx("All the tests");
 	load_test(&tests, (t_test){
 		.name = "Framework",
-		.func = &framework_tester_launcher
+		.func = &framework_launcher
+	});
+	load_test(&tests, (t_test){
+		.name = "Printf",
+		.func = &printf_launcher
 	});
 	return (launch_tests(&tests));
 }
