@@ -44,5 +44,7 @@ void	load_test(t_unit_ctx **head, t_test test)
 		return ;
 	}
 	node->test = test;
+	if (node->test.expected == 0)
+		node->test.expected = OK;
 	get_last(*head)->next = node;
 }

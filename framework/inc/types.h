@@ -31,7 +31,12 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
-typedef enum e_status
+typedef enum e_status		t_status;
+typedef int					(*t_testfunc)(void);
+typedef struct s_test		t_test;
+typedef struct s_test_list	t_unit_ctx;
+
+enum e_status
 {
 	UNKNOWN,
 	ERR,
@@ -44,11 +49,8 @@ typedef enum e_status
 	PIPE,
 	ILL,
 	TIME
-}	t_status;
+};
 
-typedef int					(*t_testfunc)(void);
-typedef struct s_test		t_test;
-typedef struct s_test_list	t_unit_ctx;
 struct s_test
 {
 	char		*name;
@@ -56,6 +58,7 @@ struct s_test
 	bool		silent;
 	t_status	status;
 	size_t		timeout_seconds;
+	t_status	expected;
 };
 struct s_test_list
 {
