@@ -139,6 +139,10 @@ int	main(int ac, char **av)
 		.name = "Printf",
 		.func = &printf_launcher
 	});
+	load_test(&tests, (t_test){
+		.name = "Split",
+		.func = &split_launcher
+	});
 	if (!tests)
 	{
 		free_ctx(tests);
@@ -155,9 +159,5 @@ int	main(int ac, char **av)
 			return (flags_ret - 1);
 		}
 	}
-	load_test(&tests, (t_test){
-		.name = "Split",
-		.func = &split_launcher
-	});
 	return (launch_tests(&tests));
 }
