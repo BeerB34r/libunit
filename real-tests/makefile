@@ -17,8 +17,11 @@ PRINTF_TESTS	= $(addprefix printf/, 00_launcher.c 01_basic.c 02_cflag.c 03_sflag
 # SPLIT SECTION
 SPLIT_TESTS	= $(addprefix split/, 00_launcher.c 01_basic_test.c 02_null_check.c 03_consecutive_char_test.c 04_newline_test.c 05_empty_string_test.c)
 
+# CALLOC SECTION
+CALLOC_TESTS	= $(addprefix calloc/, 00_launcher.c 01_basic_test.c 02_pointer_test.c 03_null_test.c)
+
 # REST OF THE OWL
-TESTS			= $(FRAMEWORK_TESTS) $(PRINTF_TESTS) $(SPLIT_TESTS)
+TESTS			= $(FRAMEWORK_TESTS) $(PRINTF_TESTS) $(SPLIT_TESTS) $(CALLOC_TESTS)
 MAIN			= main.c
 LIBS			= ../framework/libunit.a ../framework/lib/libft/libft.a
 LDFLAGS			= $(LIBS) -lm

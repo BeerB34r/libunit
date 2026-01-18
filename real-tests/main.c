@@ -6,7 +6,7 @@
 /*   By: akim <akim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 14:01:09 by mde-beer          #+#    #+#             */
-/*   Updated: 2026/01/18 18:22:42 by akim             ###   ########.fr       */
+/*   Updated: 2026/01/18 19:54:09 by akim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 int	framework_launcher(void);
 int	printf_launcher(void);
 int	split_launcher(void);
+int	calloc_launcher(void);
 
 const static char *const	g_usage_string
 	= CYAN "[USAGE]" CLEAR ": %s [options] [test suite]\n"
@@ -142,6 +143,10 @@ int	main(int ac, char **av)
 	load_test(&tests, (t_test){
 		.name = "Split",
 		.func = &split_launcher
+	});
+	load_test(&tests, (t_test){
+		.name = "Calloc",
+		.func = &calloc_launcher
 	});
 	if (!tests)
 	{
