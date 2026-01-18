@@ -4,10 +4,10 @@ STRLEN_TESTS	= $(addprefix strlen/, 00_launcher.c 01_basic.c 02_null.c 03_bigger
 TESTS			= $(STRLEN_TESTS) $(PUTS_TESTS) $(FIB_TESTS)
 FUNCTIONS		= $(addprefix functions/, ft_strlen.c puts.c fib.c)
 MAIN			= main.c
-LIBS			= ../libunit.a ../lib/libft/libft.a
+LIBS			= ../framework/libunit.a ../framework/lib/libft/libft.a
 LDFLAGS			= $(LIBS) -lm
 CFLAGS			= -Wall -Wextra -Werror -g 
-CPPFLAGS		= -I../inc/ -I../lib/libft/include/
+CPPFLAGS		= -I../framework/inc/ -I../framework/lib/libft/include/
 .PHONY			: all test
 
 all: test
@@ -18,10 +18,10 @@ test: $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
 %.o	: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
-../libunit.a:
-	$(MAKE) -C ../
-../lib/libft/libft.a:
-	$(MAKE) -C ../lib/libft/
+../framework/libunit.a:
+	$(MAKE) -C ../framework
+../framework/lib/libft/libft.a:
+	$(MAKE) -C ../framework/lib/libft/
 
 re:
 	$(RM) $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
