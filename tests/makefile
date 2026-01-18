@@ -6,14 +6,18 @@ FUNCTIONS		= $(addprefix functions/, ft_strlen.c puts.c fib.c)
 MAIN			= main.c
 LIBS			= ../framework/libunit.a ../framework/lib/libft/libft.a
 LDFLAGS			= $(LIBS) -lm
-CFLAGS			= -Wall -Wextra -Werror -g 
+CFLAGS			= -Wall -Wextra -Werror
 CPPFLAGS		= -I../framework/inc/ -I../framework/lib/libft/include/
-.PHONY			: all test
+.PHONY			: all test run
 
 all: test
 
-test: $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
+test: run
+
+compile: $(LIBS) $(TESTS:.c=.o) $(FUNCTIONS:.c=.o) $(MAIN:.c=.o)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(MAIN) $(TESTS) $(FUNCTIONS) $(LDFLAGS) 
+run: compile
+	./test
 
 %.o	: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
