@@ -100,7 +100,7 @@ int	launch_tests(t_unit_ctx **head)
 	passing_tests = 0;
 	while (current)
 	{
-		if (current->test.ignore)
+		if (current->test.ignore == true)
 			total_tests--;
 		else
 			administer_test(&passing_tests, current, head);
