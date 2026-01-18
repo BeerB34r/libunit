@@ -56,6 +56,7 @@ struct s_test
 	char		*name;
 	t_testfunc	func;
 	bool		silent;
+	bool		ignore;
 	t_status	status;
 	size_t		timeout_seconds;
 	t_status	expected;

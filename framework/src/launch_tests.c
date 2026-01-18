@@ -43,23 +43,21 @@ int	test_length(t_unit_ctx *head)
 }
 
 static
-char	*color(t_test test)
-{
-	if (test.status == test.expected)
-		return (GREEN);
-	else if (test.status == ERR)
-		return (MAGENTA);
-	return (RED);
-}
-
-static
 void	output_test_result(char *function_name, t_test test)
 {
+	char	*color;
+
+	if (test.status == test.expected)
+		color = GREEN;
+	else if (test.status == ERR)
+		color = MAGENTA;
+	else
+		color = RED;
 	log_test(function_name, test);
 	ft_printf("%s:%s:%s%s" CLEAR "\n",
 		function_name,
 		test.name,
-		color(test),
+		color,
 		status(test.status)
 		);
 }
@@ -73,31 +71,42 @@ void	print_final_result(int passing_tests, int total_tests)
 		passing_tests, total_tests, percent);
 }
 
+static
+void	administer_test(
+int *passing_tests,
+t_unit_ctx *current,
+t_unit_ctx **head
+)
+{
+	run_test(&current->test, *head);
+	if (current->test.status == current->test.expected)
+		(*passing_tests)++;
+	if (!current->test.silent)
+		output_test_result((*head)->test.name, current->test);
+}
+
+// NB: invalidates context pointer
 int	launch_tests(t_unit_ctx **head)
 {
 	t_unit_ctx	*current;
-	char		*function_name;
 	int			total_tests;
 	int			passing_tests;
 
 	current = *head;
 	if (!current)
 		return (1);
-	function_name = current->test.name;
 	current = current->next;
 	total_tests = test_length(current);
 	passing_tests = 0;
 	while (current)
 	{
-		run_test(&current->test, *head);
-		if (current->test.status == current->test.expected)
-			passing_tests++;
-		if (!current->test.silent)
-			output_test_result(function_name, current->test);
+		if (current->test.ignore)
+			total_tests--;
+		else
+			administer_test(&passing_tests, current, head);
 		current = current->next;
 	}
 	print_final_result(passing_tests, total_tests);
 	free_ctx(*head);
-	*head = NULL;
 	return (!(total_tests == passing_tests) * -1);
 }

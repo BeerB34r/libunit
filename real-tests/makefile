@@ -21,13 +21,16 @@ LIBS			= ../framework/libunit.a ../framework/lib/libft/libft.a
 LDFLAGS			= $(LIBS) -lm
 CFLAGS			= -Wall -Wextra -Werror
 CPPFLAGS		= -I../framework/inc/ -I../framework/lib/libft/include/
-.PHONY			: all
+.PHONY			: all test run
 
 all: test
 
-test: $(LIBS) $(TESTS:.c=.o) $(MAIN:.c=.o)
-	$(CC) $(CFLAGS) -o $@ $(MAIN:.c=.o) $(TESTS:.c=.o) $(LDFLAGS) 
+test: compile run
+
+run:
 	./test
+compile: $(LIBS) $(TESTS:.c=.o) $(MAIN:.c=.o)
+	$(CC) $(CFLAGS) -o $@ $(MAIN:.c=.o) $(TESTS:.c=.o) $(LDFLAGS) 
 
 %.o	: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
